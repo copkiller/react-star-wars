@@ -31,11 +31,11 @@ export const getApiResource = async (url) => {
 // console.log(body); //* pending; Так не работает!!!
 
 //! Способ через обычные промисы
-getApiResource(SWAPI_ROOT + SWAPI_PEOPLE)
-	.then(body => console.log(body));
+// getApiResource(SWAPI_ROOT + SWAPI_PEOPLE)
+// 	.then(body => console.log(body));
 
 //! Способ через ассинхронную самовызывающуюсф функцию
 (async () => {
-	const body = getApiResource(SWAPI_ROOT + SWAPI_PEOPLE);
+	const body = await getApiResource(SWAPI_ROOT + SWAPI_PEOPLE);
 	console.log(body);
 })();

@@ -1,6 +1,3 @@
-const SWAPI_ROOT = 'https://swapi.dev/api/';
-const SWAPI_PEOPLE = 'people';
-
 //! Обычные промисы
 // export const getApiResource = (url) => {
 // 	fetch(url)
@@ -35,7 +32,7 @@ export const getApiResource = async (url) => {
 // 	.then(body => console.log(body));
 
 //! Способ через ассинхронную самовызывающуюсф функцию
-(async () => {
-	const body = await getApiResource(SWAPI_ROOT + SWAPI_PEOPLE);
-	console.log(body);
-})();
+// (async () => {
+// 	const body = await getApiResource(SWAPI_ROOT + SWAPI_PEOPLE);
+// 	console.log(body);
+// })();

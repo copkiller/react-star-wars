@@ -12,7 +12,7 @@ const Header = () => {
                </NavLink>
             </li>
             <li>
-               <NavLink to="/People" exact>
+               <NavLink to="/People/?page=1" exact>
                   People
                </NavLink>
             </li>
@@ -27,4 +27,3 @@ const Header = () => {
 };
 
 export default Header;
-

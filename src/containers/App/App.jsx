@@ -13,7 +13,6 @@ const App = () => {
                <Header />
 
                <Switch>
-                  {/* <Route path="/" exact component={HomePage} /> */}
                   {routesConfig.map(({ path, exact, component }, index) => (
                      <Route key={index} path={path} exact={exact} component={component} />
                   ))}

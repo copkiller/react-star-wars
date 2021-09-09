@@ -9,7 +9,7 @@ const PersonInfo = ({ personInfo }) => {
                ({ title, data }) =>
                   data && (
                      <li className={styles.list__item} key={title}>
-                        <span className={styles.item__title}>{title}</span>:{data}
+                        <span className={styles.item__title}>{title}</span>: {data}
                      </li>
                   ),
             )}

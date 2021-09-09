@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { withErrorApi } from '@hoc-helpers/withErrorApi';
-import PersonPhoto from '@components/PersonPage/PersonPhoto/PersonPhoto';
-import PersonInfo from '@components/PersonPage/PersonInfo/PersonInfo';
+import PersonPhoto from '@components/PersonPage/PersonPhoto';
+import PersonInfo from '@components/PersonPage/PersonInfo';
+import PersonLinkBack from '@components/PersonPage/PersonLinkBack';
 import { getApiResource } from '@utils/network';
 import { getPeopleImage } from '@services/getPeopleData';
 import { API_PERSON } from '@constants/api';
@@ -44,13 +45,16 @@ const PersonPage = ({ match, setErrorApi }) => {
    }, []);
 
    return (
-      <div className={styles.wrapper}>
-         <span className={styles.person__name}>{personName}</span>
-         <div className={styles.container}>
-            <PersonPhoto personPhoto={personPhoto} personName={personName} />
-            {personInfo && <PersonInfo personInfo={personInfo} />}
+      <>
+         <PersonLinkBack />
+         <div className={styles.wrapper}>
+            <span className={styles.person__name}>{personName}</span>
+            <div className={styles.container}>
+               <PersonPhoto personPhoto={personPhoto} personName={personName} />
+               {personInfo && <PersonInfo personInfo={personInfo} />}
+            </div>
          </div>
-      </div>
+      </>
    );
 };
 

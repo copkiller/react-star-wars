@@ -1,19 +1,23 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { withErrorApi } from '@hoc-helpers/withErrorApi';
 import PersonPhoto from '@components/PersonPage/PersonPhoto';
 import PersonInfo from '@components/PersonPage/PersonInfo';
 import PersonLinkBack from '@components/PersonPage/PersonLinkBack';
+import UILoading from '@components/UI/UILoading';
 import { getApiResource } from '@utils/network';
 import { getPeopleImage } from '@services/getPeopleData';
 import { API_PERSON } from '@constants/api';
 
 import styles from './PersonPage.module.css';
 
+const PersonFilms = React.lazy(() => import('@components/PersonPage/PersonFilms'));
+
 const PersonPage = ({ match, setErrorApi }) => {
    const [personInfo, setPersonInfo] = useState(null);
    const [personName, setPersonName] = useState(null);
    const [personPhoto, setPersonPhoto] = useState(null);
+   const [personFilms, setPersonFilms] = useState(null);
 
    useEffect(() => {
       (async () => {
@@ -35,7 +39,7 @@ const PersonPage = ({ match, setErrorApi }) => {
             setPersonName(res.name);
             setPersonPhoto(getPeopleImage(id));
 
-            // res.films
+            res.films.length && setPersonFilms(res.films);
 
             setErrorApi(false);
          } else {
@@ -46,12 +50,18 @@ const PersonPage = ({ match, setErrorApi }) => {
 
    return (
       <>
+         {/* <UILoading theme="blue" isShadow classes/> */}
          <PersonLinkBack />
          <div className={styles.wrapper}>
             <span className={styles.person__name}>{personName}</span>
             <div className={styles.container}>
                <PersonPhoto personPhoto={personPhoto} personName={personName} />
                {personInfo && <PersonInfo personInfo={personInfo} />}
+               {personFilms && (
+                  <Suspense fallback={<UILoading theme="white" />}>
+                     <PersonFilms personFilms={personFilms} />
+                  </Suspense>
+               )}
             </div>
          </div>
       </>

@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, Suspense } from 'react';
+import { useSelector } from 'react-redux';
+
 import { withErrorApi } from '@hoc-helpers/withErrorApi';
 import PersonPhoto from '@components/PersonPage/PersonPhoto';
 import PersonInfo from '@components/PersonPage/PersonInfo';
@@ -14,16 +16,23 @@ import styles from './PersonPage.module.css';
 const PersonFilms = React.lazy(() => import('@components/PersonPage/PersonFilms'));
 
 const PersonPage = ({ match, setErrorApi }) => {
+   const [personId, setPersonId] = useState(null);
    const [personInfo, setPersonInfo] = useState(null);
    const [personName, setPersonName] = useState(null);
    const [personPhoto, setPersonPhoto] = useState(null);
    const [personFilms, setPersonFilms] = useState(null);
+   const [personFavorite, setPersonFavorite] = useState(false);
+
+   const storeData = useSelector((state) => state.favoriteReducer);
 
    useEffect(() => {
       (async () => {
          const id = match.params.id;
-
          const res = await getApiResource(API_PERSON + '/' + id + '/');
+
+         setPersonFavorite(!!storeData[id]);
+
+         setPersonId(id);
 
          if (res) {
             setPersonInfo([
@@ -55,7 +64,13 @@ const PersonPage = ({ match, setErrorApi }) => {
          <div className={styles.wrapper}>
             <span className={styles.person__name}>{personName}</span>
             <div className={styles.container}>
-               <PersonPhoto personPhoto={personPhoto} personName={personName} />
+               <PersonPhoto
+                  personFavorite={personFavorite}
+                  setPersonFavorite={setPersonFavorite}
+                  personId={personId}
+                  personPhoto={personPhoto}
+                  personName={personName}
+               />
                {personInfo && <PersonInfo personInfo={personInfo} />}
                {personFilms && (
                   <Suspense fallback={<UILoading theme="white" />}>

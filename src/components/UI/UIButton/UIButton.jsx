@@ -21,7 +21,7 @@ UIButton.propTypes = {
    onClick: PropTypes.func,
    disabled: PropTypes.bool,
    theme: PropTypes.string,
-   classes: PropTypes.string,
+   // classes: PropTypes.string,
 };
 
 export default UIButton;

@@ -14,7 +14,7 @@ const PersonFilms = ({ personFilms }) => {
 
          setFilmsName(response);
       })();
-   }, []);
+   }, [personFilms]);
 
    return (
       <div className={styles.wrapper}>
